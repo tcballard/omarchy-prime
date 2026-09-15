@@ -8,7 +8,11 @@ An unofficial Prime Video launcher: its own Google Chrome window, official websi
 
 Development preview 0.1.0. Intended for Omarchy 4 on x86_64, with Google Chrome and an Amazon account with access to the content you want to watch. No installed Omarchy version or live Prime Video playback has been tested in the build environment.
 
-## Install
+## Pacman packaging preview
+
+See [PACKAGING.md](PACKAGING.md) for the package build, migration, upgrade/removal instructions and current browser dependency limitation. This is not yet an Omarchy repository package.
+
+## Install locally
 
 ```bash
 git clone https://github.com/tcballard/omarchy-prime.git

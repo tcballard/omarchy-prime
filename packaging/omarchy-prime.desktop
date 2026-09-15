@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Prime
+Comment=Unofficial launcher for Prime Video in Google Chrome
+Exec=/usr/bin/omarchy-prime
+Icon=omarchy-prime
+Terminal=false
+StartupNotify=true
+StartupWMClass=omarchy-prime
+Categories=AudioVideo;Video;
+Keywords=Prime Video;Movies;TV;Streaming;

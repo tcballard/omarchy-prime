@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+(( $# == 0 )) || { echo "Usage: omarchy-prime-migrate-local" >&2; exit 2; }
+(( EUID != 0 )) || { echo 'Run this as your desktop user, without sudo.' >&2; exit 1; }
+pacman -Q omarchy-prime >/dev/null
+[[ $(pacman -Qoq /usr/bin/omarchy-prime) == omarchy-prime ]] || exit 1
+data=${XDG_DATA_HOME:-}
+[[ $data == /* ]] || data="$HOME/.local/share"
+helper="$data/omarchy-prime/omarchy-prime"
+desktop="$data/applications/omarchy-prime.desktop"
+icon="$data/icons/hicolor/128x128/apps/omarchy-prime.png"
+# Refuse symlinks and modified helpers/icons; never delete personal files.
+for path in "$helper" "$desktop" "$icon"; do
+  [[ ! -L $path ]] || { echo "Refusing symlink: $path" >&2; exit 1; }
+  [[ ! -e $path || -f $path ]] || { echo "Not a regular file: $path" >&2; exit 1; }
+done
+[[ ! -e $helper ]] || cmp -s -- "$helper" /usr/bin/omarchy-prime || { echo 'Local helper differs; review it manually.' >&2; exit 1; }
+[[ ! -e $icon ]] || cmp -s -- "$icon" /usr/share/icons/hicolor/128x128/apps/omarchy-prime.png || { echo 'Local icon differs; review it manually.' >&2; exit 1; }
+if [[ -e $desktop ]]; then
+  grep -Fxq 'Icon=omarchy-prime' "$desktop" || { echo 'Unrecognised local desktop entry.' >&2; exit 1; }
+  grep -Fxq 'StartupWMClass=omarchy-prime' "$desktop" || { echo 'Unrecognised local desktop entry.' >&2; exit 1; }
+fi
+if [[ ! -e $helper && ! -e $desktop && ! -e $icon ]]; then
+  echo 'No legacy local installation found.'; exit 0
+fi
+umask 077
+mkdir -p -- "$data/omarchy-app-migration"
+backup=$(mktemp -d "$data/omarchy-app-migration/omarchy-prime.XXXXXX")
+# Back up the entry first. If interrupted, the package entry is already visible.
+[[ ! -e $desktop ]] || mv -- "$desktop" "$backup/omarchy-prime.desktop"
+[[ ! -e $helper ]] || mv -- "$helper" "$backup/omarchy-prime"
+[[ ! -e $icon ]] || mv -- "$icon" "$backup/omarchy-prime.png"
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database "$data/applications" || true
+fi
+printf 'Local launcher backed up to %s. Browser profile preserved.\n' "$backup"

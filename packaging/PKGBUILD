@@ -1,0 +1,30 @@
+# Maintainer: Tom Ballard (tcballard)
+pkgname=omarchy-prime
+pkgver=0.1.0pre1
+pkgrel=1
+pkgdesc='Unofficial Prime Video web launcher with a dedicated Google Chrome profile'
+# Launcher code is portable; the supported browser dependency is x86_64 only.
+arch=('x86_64')
+url='https://github.com/tcballard/omarchy-prime'
+license=('MIT' 'custom')
+depends=('bash' 'coreutils' 'grep' 'google-chrome' 'hicolor-icon-theme')
+optdepends=('libnotify: startup error notifications' 'uwsm: managed Wayland startup' 'desktop-file-utils: refresh local entries during migration')
+options=('!debug' '!strip')
+_commit=bfa9fd9bc45eb3aff3d5feaa6fe0581804affda0
+source=("$pkgname-$_commit.tar.gz::https://github.com/tcballard/$pkgname/archive/$_commit.tar.gz"
+        'omarchy-prime.desktop'
+        'omarchy-prime-migrate-local'
+        'THIRD-PARTY-NOTICES')
+sha256sums=('00ebae3321a9f0219eb94cae4f52af6a7b38b05b5caba26ebc3ff27db32a6981'
+            '32221c03c35c10f3795953e2a8ff127435f0e693a5c21416751555f1bef1be87'
+            '4d38b17afc431f2b898851171654b41d87f20eb02dad88201bfaccbb8a0d5de4'
+            '4eecf4cd147d8c0cb5f658fc9068f2716cf2f0f5a211c179cf11d159ae415168')
+
+package() {
+  install -Dm755 "$srcdir/$pkgname-$_commit/$pkgname" "$pkgdir/usr/bin/$pkgname"
+  install -Dm755 "$srcdir/$pkgname-migrate-local" "$pkgdir/usr/bin/$pkgname-migrate-local"
+  install -Dm644 "$srcdir/$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 "$srcdir/$pkgname-$_commit/prime-video.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/$pkgname.png"
+  install -Dm644 "$srcdir/$pkgname-$_commit/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/THIRD-PARTY-NOTICES" "$pkgdir/usr/share/licenses/$pkgname/THIRD-PARTY-NOTICES"
+}
