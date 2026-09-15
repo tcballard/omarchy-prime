@@ -29,8 +29,8 @@ cat > "$tmp" <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Prime Video (Unofficial)
-Comment=Watch Prime Video in a dedicated Google Chrome window
+Name=Prime
+Comment=Unofficial launcher: watch Prime Video in a dedicated Google Chrome window
 Exec=$exec_arg
 Icon=omarchy-prime
 Terminal=false
@@ -44,7 +44,7 @@ mv -f -- "$tmp" "$desktop_dir/omarchy-prime.desktop"
 if command -v update-desktop-database >/dev/null 2>&1; then
   update-desktop-database "$desktop_dir" >/dev/null 2>&1 || true
 fi
-printf '%s\n' 'Installed. Search for Prime Video in your app launcher.'
+printf '%s\n' 'Installed. Search for Prime in your app launcher.'
 if ! command -v google-chrome-stable >/dev/null 2>&1 && ! command -v google-chrome >/dev/null 2>&1; then
   printf '%s\n' 'Google Chrome is required before playback. Install it through Omarchy.'
 fi

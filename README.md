@@ -16,7 +16,7 @@ cd omarchy-prime
 bash install.sh
 ```
 
-Search for **Prime Video (Unofficial)** in the app launcher. Install Google Chrome through Omarchy if the launcher reports it missing, then sign in directly on Prime Video. The installer needs no sudo and downloads nothing.
+Search for **Prime** in the app launcher. Install Google Chrome through Omarchy if the launcher reports it missing, then sign in directly on Prime Video. The installer needs no sudo and downloads nothing.
 
 Direct launch from the repository:
 
@@ -49,3 +49,5 @@ Still to check on Omarchy: launcher/icon visibility, window grouping, Amazon log
 Based on the Netflix launcher from [tcballard/omarchy-netflix](https://github.com/tcballard/omarchy-netflix/commit/25abeaf986df9f37692d397ae63c83d8e7897788), originally following Omarchy's web-app pattern at revision `2fbac0c8e88eca704af1650ce721a494bd11a3d0`.
 
 The unchanged `prime-video.png` is the 128×128 icon linked by [Prime Video](https://www.primevideo.com/), downloaded from [Amazon's asset server](https://m.media-amazon.com/images/G/01/digital/video/DVUI/favicons/favicon-128x128.png) on 2026-09-15. Amazon owns this artwork and its marks; they are excluded from the code's MIT licence. The launcher code is MIT licensed.
+
+The installer registers the app as **Prime** using a user-local `.desktop` entry. This is desktop launcher registration, not a pacman package. Existing installations get the updated name by updating the checkout and rerunning `bash install.sh`.
