@@ -11,6 +11,8 @@ jobs:
       - name: Install build and validation tools
         run: pacman -Syu --noconfirm base-devel git namcap shellcheck desktop-file-utils hicolor-icon-theme
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Shell and desktop checks
         run: |
           bash -n omarchy-prime install.sh uninstall.sh packaging/omarchy-prime-migrate-local tests/package.sh

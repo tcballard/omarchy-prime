@@ -7,3 +7,7 @@ Platform: Linux-6.18.44-x86_64-with-glibc2.39; Bash 5.2.
 Not run: real Omarchy, Chrome DRM/playback, window identity, fullscreen, sound, scaling, login redirects, sleep inhibition, desktop-file-validate or ShellCheck. The latter tools are unavailable here. No CI run is claimed.
 
 Source lineage is recorded in README.md. SHA256SUMS identifies the delivered files.
+
+## Pacman packaging development
+
+The earlier local-installer results above are historical. New package validation and its explicit limits are documented in [PACKAGING.md](PACKAGING.md) and the per-commit GitHub workflow.

@@ -12,7 +12,7 @@ runuser -u package-test -- makepkg --nodeps --cleanbuild --force
 pkg=$(find . -maxdepth 1 -name 'omarchy-prime-*.pkg.tar.zst' -print -quit)
 [[ -n $pkg ]]
 bsdtar -tf "$pkg" > package-files.txt
-! grep -Eq '^(home|root|etc)/' package-files.txt
+if grep -Eq '^(home|root|etc)/' package-files.txt; then exit 1; fi
 namcap PKGBUILD "$pkg" | tee namcap.txt
 # Chrome is deliberately absent. This tests packaging, not dependency availability or DRM.
 pacman -U --noconfirm --assume-installed google-chrome=999 "$pkg"

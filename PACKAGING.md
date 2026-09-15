@@ -4,7 +4,7 @@ Status: development packaging, version `0.1.0pre1-1`. No official Omarchy inclus
 
 ## Build and install on x86_64 Arch / Omarchy
 
-Requires `base-devel`, `git`, and **Google Chrome already installed as the `google-chrome` package**. This recipe deliberately does not install a browser from an arbitrary source. The current Omarchy package tree provides `omarchy-chromium-bin`, not Google Chrome; resolving that browser choice is required before an upstream submission.
+Requires `base-devel`, `git`, and **Google Chrome already installed as the `google-chrome` package**. This recipe deliberately does not install a browser from an arbitrary source. The current Omarchy package tree provides `omarchy-chromium-bin`, not Google Chrome; resolving that browser choice is required before an upstream submission. Chrome is a supported starting point, not an inherent technical requirement: the archived Omarchy Chromium recipe enables proprietary codecs and Widevine support, but that alone does not prove the installed CDM or protected playback works.
 
 From this checkout, as your ordinary user:
 
