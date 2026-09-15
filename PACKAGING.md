@@ -40,3 +40,9 @@ The `Package validation` GitHub workflow uses a disposable Arch container. It bu
 Artifacts contain unsigned preview packages, SHA-256 digests, the package file list, generated `.SRCINFO` and namcap output. They are not production releases.
 
 Local environment: Ubuntu 24.04 x86_64. An attempted local Arch bootstrap test could not run because chroot is not permitted. No live Omarchy version, Chrome, Widevine, account login, protected playback, window grouping, audio or fullscreen has been tested here. See CI for the result on each exact commit.
+
+### Reproduced package lifecycle evidence
+
+On 2026-09-15, Arch CI successfully built, installed, migrated, upgraded from revision 1 to 2, and removed the actual package, preserving login and unrelated-app markers. The fake browser verified the fixed URL and existing profile path. Modified helpers were refused and repeated migration was harmless. ShellCheck and desktop-file-validate passed.
+
+The first lifecycle run reported an obsolete custom licence identifier from namcap; the recipe now uses `LicenseRef-Proprietary-Artwork` and CI fails on namcap errors. Expected warnings remain for restricting architecture-independent scripts to x86_64 because of the supported browser, and for runtime shell dependencies that static analysis cannot reliably identify. These warnings do not establish actual browser availability or playback. Final evidence is tied to the exact commit shown by the PR's checks.

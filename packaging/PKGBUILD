@@ -6,7 +6,7 @@ pkgdesc='Unofficial Prime Video web launcher with a dedicated Google Chrome prof
 # Launcher code is portable; the supported browser dependency is x86_64 only.
 arch=('x86_64')
 url='https://github.com/tcballard/omarchy-prime'
-license=('MIT' 'custom')
+license=('MIT' 'LicenseRef-Proprietary-Artwork')
 depends=('bash' 'coreutils' 'diffutils' 'grep' 'pacman' 'google-chrome' 'hicolor-icon-theme')
 optdepends=('libnotify: startup error notifications' 'uwsm: managed Wayland startup' 'desktop-file-utils: refresh local entries during migration')
 options=('!debug' '!strip')
