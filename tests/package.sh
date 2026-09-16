@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-# This harness installs/removes packages and supplies a fake browser.
+# This harness installs/removes packages and supplies a fake Chromium.
 [[ ${OMARCHY_DISPOSABLE_PACKAGE_TEST:-} == 1 && -e /run/omarchy-package-test-container ]] || {
   echo 'Run only in the disposable CI container.' >&2; exit 1;
 }
@@ -15,22 +15,24 @@ bsdtar -tf "$pkg" > package-files.txt
 if grep -Eq '^(home|root|etc)/' package-files.txt; then exit 1; fi
 namcap PKGBUILD "$pkg" | tee namcap.txt
 if grep -q " E: " namcap.txt; then exit 1; fi
-# Chrome is deliberately absent. This tests packaging, not dependency availability or DRM.
-pacman -U --noconfirm --assume-installed google-chrome=999 "$pkg"
+# Chromium is deliberately absent. This tests packaging, not dependency availability or DRM.
+pacman -U --noconfirm --assume-installed chromium=999 "$pkg"
 desktop-file-validate /usr/share/applications/omarchy-prime.desktop
 grep -Fx 'Name=Prime' /usr/share/applications/omarchy-prime.desktop
 [[ $(pacman -Qoq /usr/bin/omarchy-prime) == omarchy-prime ]]
-cat > /usr/bin/google-chrome-stable <<'BROWSER'
+cat > /usr/bin/chromium <<'BROWSER'
 #!/bin/bash
 printf '%s\n' "$@" > "$HOME/browser-args"
 BROWSER
-chmod 755 /usr/bin/google-chrome-stable
+chmod 755 /usr/bin/chromium
 runuser -u package-test -- bash -s -- "$root" <<'USER'
 set -euo pipefail
 export XDG_DATA_HOME="$HOME/data space" XDG_CONFIG_HOME="$HOME/config space"
 export WAYLAND_DISPLAY=''
 omarchy-prime
-grep -Fx -- '--app=https://www.primevideo.com/' "$HOME/browser-args"
+grep -Fx -- '--new-window' "$HOME/browser-args"
+grep -Fx -- 'https://www.primevideo.com/' "$HOME/browser-args"
+! grep -q -- '--app=' "$HOME/browser-args"
 grep -Fx -- "--user-data-dir=$XDG_CONFIG_HOME/omarchy-prime/chrome" "$HOME/browser-args"
 [[ $(stat -c %a "$XDG_CONFIG_HOME/omarchy-prime/chrome") == 700 ]]
 echo saved > "$XDG_CONFIG_HOME/omarchy-prime/chrome/login-marker"
@@ -55,7 +57,7 @@ USER
 sed -i 's/^pkgrel=1$/pkgrel=2/' PKGBUILD
 runuser -u package-test -- makepkg --nodeps --force
 upgrade=$(find . -maxdepth 1 -name 'omarchy-prime-*-2-x86_64.pkg.tar.zst' -print -quit)
-pacman -U --noconfirm --assume-installed google-chrome=999 "$upgrade"
+pacman -U --noconfirm --assume-installed chromium=999 "$upgrade"
 pacman -Q omarchy-prime | grep -F '0.1.0pre1-2'
 pacman -R --noconfirm omarchy-prime
 [[ ! -e /usr/bin/omarchy-prime && ! -e /usr/share/applications/omarchy-prime.desktop ]]

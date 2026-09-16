@@ -10,28 +10,23 @@ fail() {
 }
 
 case ${1:-} in
-  --help) printf '%s\n' 'Open Prime Video in a dedicated Google Chrome app window.'; exit 0 ;;
+  --help) printf '%s\n' 'Open Prime Video in a dedicated Chromium window.'; exit 0 ;;
   '') ;;
   *) fail 'This launcher does not accept URLs or browser options.' ;;
 esac
 (( $# <= 1 )) || fail 'Unexpected arguments.'
 
-browser=''
-for candidate in google-chrome-stable google-chrome; do
-  if command -v "$candidate" >/dev/null 2>&1; then
-    browser=$(command -v "$candidate")
-    break
-  fi
-done
-[[ -n $browser ]] || fail 'Google Chrome is required. Install it through Omarchy, then open Prime Video again.'
+browser=$(command -v chromium || true)
+[[ -n $browser ]] || fail 'Chromium is required. Install it through Omarchy, then open Prime Video again.'
 
 config=${XDG_CONFIG_HOME:-}
 [[ $config == /* ]] || config="$HOME/.config"
 profile="$config/omarchy-prime/chrome"
 umask 077
 mkdir -p -- "$profile"
-args=("--user-data-dir=$profile" '--class=omarchy-prime' '--app=https://www.primevideo.com/' '--no-first-run' '--no-default-browser-check')
-# Preserve Chrome sandboxing and GPU defaults. Never disable the sandbox for DRM.
+args=("--user-data-dir=$profile" '--class=omarchy-prime' '--new-window' '--no-first-run' '--no-default-browser-check' 'https://www.primevideo.com/')
+# Normal window mode is intentional: Prime playback was verified there and failed
+# with error 7031 in Chromium app mode. Preserve sandboxing and GPU defaults.
 if [[ -n ${WAYLAND_DISPLAY:-} ]] && command -v uwsm-app >/dev/null 2>&1; then
   exec uwsm-app -- "$browser" "${args[@]}"
 fi

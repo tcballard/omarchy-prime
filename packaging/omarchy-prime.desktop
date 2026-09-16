@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Prime
-Comment=Unofficial launcher for Prime Video in Google Chrome
+Comment=Unofficial launcher for Prime Video in Chromium
 Exec=/usr/bin/omarchy-prime
 Icon=omarchy-prime
 Terminal=false
