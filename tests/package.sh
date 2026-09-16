@@ -59,7 +59,7 @@ sed -i 's/^pkgrel=1$/pkgrel=2/' PKGBUILD
 runuser -u package-test -- makepkg --nodeps --force
 upgrade=$(find . -maxdepth 1 -name 'omarchy-prime-*-2-x86_64.pkg.tar.zst' -print -quit)
 pacman -U --noconfirm --assume-installed chromium=999 "$upgrade"
-pacman -Q omarchy-prime | grep -F '0.1.0pre1-2'
+pacman -Q omarchy-prime | grep -F '0.1.0-2'
 pacman -R --noconfirm omarchy-prime
 [[ ! -e /usr/bin/omarchy-prime && ! -e /usr/share/applications/omarchy-prime.desktop ]]
 grep -Fx saved '/home/package-test/config space/omarchy-prime/chrome/login-marker'

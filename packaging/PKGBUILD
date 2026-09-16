@@ -1,6 +1,6 @@
 # Maintainer: Tom Ballard (tcballard)
 pkgname=omarchy-prime
-pkgver=0.1.0pre1
+pkgver=0.1.0
 pkgrel=1
 pkgdesc='Unofficial Prime Video web launcher with a dedicated Chromium profile'
 arch=('x86_64')
@@ -9,12 +9,12 @@ license=('MIT' 'LicenseRef-Proprietary-Artwork')
 depends=('bash' 'coreutils' 'diffutils' 'grep' 'pacman' 'chromium' 'hicolor-icon-theme')
 optdepends=('libnotify: startup error notifications' 'uwsm: managed Wayland startup' 'desktop-file-utils: refresh local entries during migration')
 options=('!debug' '!strip')
-_commit=383a36eb9d87331207ffeb3d9bc0f68a33d53350
+_commit=58be182988e89f4cdc454bffdb10080b16640479
 source=("$pkgname-$_commit.tar.gz::https://github.com/tcballard/$pkgname/archive/$_commit.tar.gz"
         'omarchy-prime.desktop'
         'omarchy-prime-migrate-local'
         'THIRD-PARTY-NOTICES')
-sha256sums=('5c8e98dd1818376d23a8187f12f0ffda7104e76c0a58f4bad2455fafc8b47749'
+sha256sums=('cc77eadd78f513e7c42aef200883a896453a87fcb032948cae06a510054a5bec'
             'ca93e1f794f3d7b467e60fdc9ddc50d092f36d179e6711391260d9429b3e2391'
             '4d38b17afc431f2b898851171654b41d87f20eb02dad88201bfaccbb8a0d5de4'
             '4eecf4cd147d8c0cb5f658fc9068f2716cf2f0f5a211c179cf11d159ae415168')

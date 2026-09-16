@@ -27,7 +27,7 @@ Removal preserves login data and migration backups. To return to the local insta
 
 ## Sources and release route
 
-The recipe pins the Chromium normal-window launcher source to commit `383a36eb9d87331207ffeb3d9bc0f68a33d53350` and a SHA-256 digest. Desktop and migration files are separately checksummed. It installs only `/usr/bin`, `/usr/share/applications`, icons and licence notices. Social preview artwork is excluded.
+The recipe pins the v0.1.0 Chromium normal-window launcher source to commit `58be182988e89f4cdc454bffdb10080b16640479` and a SHA-256 digest. Desktop and migration files are separately checksummed. It installs only `/usr/bin`, `/usr/share/applications`, icons and licence notices. Social preview artwork is excluded.
 
 `packaging/.omarchy/package.json` is prepared as local-source metadata for a future `pkgbuilds/omarchy-prime/` contribution. This project release remains separate from the Omarchy package repository. Upstream submission would additionally require installed-launcher desktop acceptance, artwork redistribution review and repository-specific release metadata.
 
