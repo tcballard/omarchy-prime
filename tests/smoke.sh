@@ -8,16 +8,18 @@ export CAPTURE="$tmp/args"
 export WAYLAND_DISPLAY=''
 mkdir -p "$HOME" "$tmp/bin"
 export PATH="$tmp/bin:/usr/bin:/bin"
-cat > "$tmp/bin/google-chrome-stable" <<'CHROME'
+cat > "$tmp/bin/chromium" <<'CHROMIUM'
 #!/bin/bash
 printf '%s\n' "$@" > "$CAPTURE"
-CHROME
-chmod +x "$tmp/bin/google-chrome-stable"
+CHROMIUM
+chmod +x "$tmp/bin/chromium"
 for script in omarchy-prime install.sh uninstall.sh; do bash -n "$root/$script"; done
 bash "$root/install.sh"
 app="$XDG_DATA_HOME/omarchy-prime/omarchy-prime"
 "$app"
-grep -Fx -- '--app=https://www.primevideo.com/' "$CAPTURE"
+grep -Fx -- '--new-window' "$CAPTURE"
+grep -Fx -- 'https://www.primevideo.com/' "$CAPTURE"
+! grep -q -- '--app=' "$CAPTURE"
 grep -Fx -- "--user-data-dir=$XDG_CONFIG_HOME/omarchy-prime/chrome" "$CAPTURE"
 ! grep -q -- '--no-sandbox' "$CAPTURE"
 [[ $(stat -c %a "$XDG_CONFIG_HOME/omarchy-prime/chrome") == 700 ]]
@@ -48,5 +50,6 @@ UWSM
 chmod +x "$tmp/bin/uwsm-app"
 export WAYLAND_DISPLAY=wayland-test
 bash "$root/omarchy-prime"
-grep -Fx -- '--app=https://www.primevideo.com/' "$CAPTURE"
-printf 'PASS: launcher, icon, reinstall/removal, profile preservation, XDG fallback, argument rejection, uwsm delegation.\n'
+grep -Fx -- '--new-window' "$CAPTURE"
+grep -Fx -- 'https://www.primevideo.com/' "$CAPTURE"
+printf 'PASS: Chromium normal-window launcher, icon, reinstall/removal, profile preservation, XDG fallback, argument rejection, uwsm delegation.\n'

@@ -1,0 +1,8 @@
+packaging/src/
+packaging/pkg/
+packaging/*.tar.gz
+packaging/*.pkg.tar.zst
+packaging/PACKAGE-SHA256SUMS
+packaging/package-files.txt
+packaging/namcap.txt
+packaging/.SRCINFO

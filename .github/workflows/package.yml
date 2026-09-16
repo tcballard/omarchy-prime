@@ -1,0 +1,35 @@
+name: Package validation
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  arch-package:
+    runs-on: ubuntu-latest
+    container: archlinux:base
+    timeout-minutes: 15
+    steps:
+      - name: Install build and validation tools
+        run: pacman -Syu --noconfirm base-devel git namcap shellcheck desktop-file-utils hicolor-icon-theme
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Shell and desktop checks
+        run: |
+          bash -n omarchy-prime install.sh uninstall.sh packaging/omarchy-prime-migrate-local tests/package.sh
+          shellcheck omarchy-prime install.sh uninstall.sh packaging/omarchy-prime-migrate-local tests/package.sh
+          desktop-file-validate packaging/omarchy-prime.desktop
+      - name: Build and exercise actual packages
+        env:
+          OMARCHY_DISPOSABLE_PACKAGE_TEST: '1'
+        run: |
+          touch /run/omarchy-package-test-container
+          bash tests/package.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: omarchy-prime-unsigned-packaging-preview
+          path: |
+            packaging/*.pkg.tar.zst
+            packaging/PACKAGE-SHA256SUMS
+            packaging/package-files.txt
+            packaging/namcap.txt
+            packaging/.SRCINFO
