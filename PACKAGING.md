@@ -1,6 +1,6 @@
-# Pacman packaging preview
+# Arch package
 
-Status: development packaging, version `0.1.0pre1-1`. No official Omarchy inclusion or vendor endorsement. The existing user-local installer remains available.
+Status: stable community-project release, version `0.1.0-1`. No official Omarchy inclusion or vendor endorsement. The user-local installer remains available.
 
 ## Build and install on x86_64 Arch / Omarchy
 
@@ -11,7 +11,7 @@ From this checkout, as your ordinary user:
 ```bash
 cd packaging
 makepkg -f
-sudo pacman -U ./omarchy-prime-0.1.0pre1-1-x86_64.pkg.tar.zst
+sudo pacman -U ./omarchy-prime-0.1.0-1-x86_64.pkg.tar.zst
 omarchy-prime-migrate-local
 ```
 
@@ -29,7 +29,7 @@ Removal preserves login data and migration backups. To return to the local insta
 
 The recipe pins the Chromium normal-window launcher source to commit `383a36eb9d87331207ffeb3d9bc0f68a33d53350` and a SHA-256 digest. Desktop and migration files are separately checksummed. It installs only `/usr/bin`, `/usr/share/applications`, icons and licence notices. Social preview artwork is excluded.
 
-`packaging/.omarchy/package.json` is prepared as local-source metadata for a future `pkgbuilds/omarchy-prime/` contribution. No upstream watch is declared yet: this is a commit-pinned development preview, not a tagged supported release. Before submission: complete installed-launcher desktop acceptance, review icon redistribution, then tag a release and pin its archive/digest with a release watch.
+`packaging/.omarchy/package.json` is prepared as local-source metadata for a future `pkgbuilds/omarchy-prime/` contribution. This project release remains separate from the Omarchy package repository. Upstream submission would additionally require installed-launcher desktop acceptance, artwork redistribution review and repository-specific release metadata.
 
 Official packaging implementation inspected at `omacom/omarchy-pkgs@5fe236736607b1a9f6df3c3a4b364515f70eed53`. Its package tree contains no existing Netflix/Prime recipes. ARM is not declared supported by this preview.
 
@@ -37,7 +37,7 @@ Official packaging implementation inspected at `omacom/omarchy-pkgs@5fe236736607
 
 The `Package validation` GitHub workflow uses a disposable Arch container. It builds without runtime dependency checking, installs with an explicit assumed Chromium dependency, and supplies a fake Chromium executable. It tests package ownership, desktop validation, normal-window arguments, migration backup/refusal/idempotence, retained profiles, actual package upgrade and removal. This proves package mechanics only; live playback evidence comes from the target Omarchy machine.
 
-Artifacts contain unsigned preview packages, SHA-256 digests, the package file list, generated `.SRCINFO` and namcap output. They are not production releases.
+Workflow artifacts contain unsigned packages, SHA-256 digests, the package file list, generated `.SRCINFO` and namcap output. The GitHub release identifies the supported project release; it is not an Omarchy repository publication.
 
 Target acceptance evidence: Omarchy, Chromium 151.0.7922.173, Widevine 4.10.3050.0; Prime playback succeeded in normal-window mode and failed in app mode. Installed launcher window grouping, audio, subtitles and fullscreen remain to be checked. See CI for package mechanics on each exact commit.
 

@@ -6,11 +6,11 @@ An unofficial Prime Video launcher: its own Chromium window, official website ic
 
 **Linux playback is limited to standard definition**, according to [Amazon's system requirements](https://www.primevideo.com/help?nodeId=GUX9FYHU5D8LC9EJ). This launcher does not bypass that limit or provide offline downloads.
 
-Development preview 0.1.0. Intended for Omarchy 4 on x86_64, with Chromium and an Amazon account with access to the content you want to watch. Prime playback was verified on Chromium 151 in a normal window; Chromium app mode failed with Amazon error 7031 on the same machine and profile, so this launcher deliberately keeps the normal browser frame.
+Current release: **v0.1.0**. Intended for Omarchy 4 on x86_64, with Chromium and an Amazon account with access to the content you want to watch. Prime playback was verified on Chromium 151 in a normal window; Chromium app mode failed with Amazon error 7031 on the same machine and profile, so this launcher deliberately keeps the normal browser frame.
 
-## Pacman packaging preview
+## Arch package
 
-See [PACKAGING.md](PACKAGING.md) for the package build, migration, upgrade/removal instructions and current browser dependency limitation. This is not yet an Omarchy repository package.
+See [PACKAGING.md](PACKAGING.md) for package installation, migration, upgrade and removal instructions. This is an official release of this community project, not an Omarchy repository package or an Amazon product.
 
 ## Install locally
 

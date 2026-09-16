@@ -20,6 +20,7 @@ pacman -U --noconfirm --assume-installed chromium=999 "$pkg"
 desktop-file-validate /usr/share/applications/omarchy-prime.desktop
 grep -Fx 'Name=Prime' /usr/share/applications/omarchy-prime.desktop
 [[ $(pacman -Qoq /usr/bin/omarchy-prime) == omarchy-prime ]]
+[[ $(omarchy-prime --version) == 'omarchy-prime 0.1.0' ]]
 cat > /usr/bin/chromium <<'BROWSER'
 #!/bin/bash
 printf '%s\n' "$@" > "$HOME/browser-args"

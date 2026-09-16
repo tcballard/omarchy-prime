@@ -11,6 +11,7 @@ fail() {
 
 case ${1:-} in
   --help) printf '%s\n' 'Open Prime Video in a dedicated Chromium window.'; exit 0 ;;
+  --version) printf '%s\n' 'omarchy-prime 0.1.0'; exit 0 ;;
   '') ;;
   *) fail 'This launcher does not accept URLs or browser options.' ;;
 esac

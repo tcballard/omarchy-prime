@@ -16,6 +16,7 @@ chmod +x "$tmp/bin/chromium"
 for script in omarchy-prime install.sh uninstall.sh; do bash -n "$root/$script"; done
 bash "$root/install.sh"
 app="$XDG_DATA_HOME/omarchy-prime/omarchy-prime"
+[[ $("$app" --version) == 'omarchy-prime 0.1.0' ]]
 "$app"
 grep -Fx -- '--new-window' "$CAPTURE"
 grep -Fx -- 'https://www.primevideo.com/' "$CAPTURE"

@@ -1,6 +1,6 @@
 # Verification
 
-Reproduced on 2026-09-16: `bash tests/smoke.sh` exited 0. Tests cover syntax, normal-window mode (and absence of app mode), fixed URL, dedicated profile, private profile-directory permissions, icon byte identity and desktop reference, paths with spaces, reinstall/removal, saved Prime and Netflix state preservation, relative XDG fallbacks, browser-flag rejection and uwsm delegation. Chromium and uwsm were stubs.
+Reproduced on 2026-09-16: `bash tests/smoke.sh` exited 0. Tests cover the reported `0.1.0` version, syntax, normal-window mode (and absence of app mode), fixed URL, dedicated profile, private profile-directory permissions, icon byte identity and desktop reference, paths with spaces, reinstall/removal, saved Prime and Netflix state preservation, relative XDG fallbacks, browser-flag rejection and uwsm delegation. Chromium and uwsm were stubs.
 
 Platform: Linux-6.18.44-x86_64-with-glibc2.39; Bash 5.2.
 
